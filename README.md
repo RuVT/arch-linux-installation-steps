@@ -1,18 +1,18 @@
-#Arch Linux Installation steps
+# Arch Linux Installation steps
 
 ---
 
 ## Instaling the OS
 
-###Copy arch in a usb with
+### Copy arch in a usb with
 ```bash
 dd if=/path/to/iso.iso of=/path/to/usb status="progress"
 ```
 
-###Set timedate 
+### Set timedate 
 timedatectl set-ntp true
 
-###Pluggin usb in pc and enter arch to create partitions
+### Pluggin usb in pc and enter arch to create partitions
 ```bash
 lsblk	#check partitons
 fdisk /dev/sda
@@ -27,22 +27,22 @@ n #new partition
 w #write to disk
 ```
 
-###check the new partitons 
+### check the new partitons 
 lsblk
 
-###make filesystems
+### make filesystems
 ```bash
 mkfs.ext4 /dev/sda1
 mkswap /dev/sda2
 swapon /dev/sda2
 ```
 
-###mount the root partitions in the system  
+### mount the root partitions in the system  
 ```bash
 mount /dev/sda3 /mnt
 ```
 
-###create folder for the rest of the partitions
+### create folder for the rest of the partitions
 ```bash
 mkdir /mnt/home
 mkdir /mnt/boot
@@ -51,44 +51,44 @@ mount /dev/sda1 /mnt/boot
 mount /dev/sda4 /mnt/home
 ```
 
-###use pacstrap to install arch in the mounted drive with the some extra tools
+### use pacstrap to install arch in the mounted drive with the some extra tools
 ```bash
 pacstrap /mnt base base-devel vim 
 ```
 
-###create an fstab file with all the partitions to be auto loaded on startup
+### create an fstab file with all the partitions to be auto loaded on startup
 ```bash
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
-###jump inside the arch installation files in your drive
+### jump inside the arch installation files in your drive
 ```bash
 arch-chroot /mnt
 ```
 
-###install a network manager, arch does not install it so no internet after reboot 
+### install a network manager, arch does not install it so no internet after reboot 
 ```bash
 pacman -S networkmanager
 ```
 
-###make the system start network manager on boot
+### make the system start network manager on boot
 ```bash
 systemctl enable NetworkManager
 ```
 
-###install grub to manage the linux OS's
+### install grub to manage the linux OS's
 ```bash
 pacman -S grub
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-###setup password
+### setup password
 ```bash
 passwd
 ```
 
-###setup locals
+### setup locals
 ```bash
 vim /etc/locale.gen #uncomment the your locals
 vim /etc/locale.conf #set the LANG variable
@@ -97,24 +97,24 @@ ln -sf /usr/share/zoneinfo/<country>/<timezone> /etc/localtime
 #ln -sf /usr/share/zoneinfo/Mexico/BajaNorte /etc/localtime
 ```
 
-###set a hostname
+### set a hostname
 ```bash
 vim /etc/hostname #write the name
 ```
 
-###reboot
+### reboot
 ```bash
 exit #go to the usb system
 umount -R /mnt #unmount everything
 reboot #and then remove the usb
 ```
 
-###Update pacman
+### Update pacman
 ```bash
 pacman -Syu
 ```
 
-###install fonts
+### install fonts
 ```bash
 pacman -S noto-fonts
 ```
