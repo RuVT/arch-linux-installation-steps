@@ -95,7 +95,16 @@ vim /etc/locale.conf #set the LANG variable
 #LANG=en-US.UTF-8
 ln -sf /usr/share/zoneinfo/<country>/<timezone> /etc/localtime
 #ln -sf /usr/share/zoneinfo/Mexico/BajaNorte /etc/localtime
+
+#you have to set the LC_* variable in /etc/locale.conf
+locale | cat > /etc/locale.conf
+#it is not necesary but can help to solve problems
+vim /etc/profile
+#add this at the end
+export LC_ALL=
+#export LC_ALL="en_US.UTF_8"
 ```
+
 
 ### set a hostname
 ```bash
@@ -144,6 +153,11 @@ vim /etc/sudoers
 pacman -S xorg-server xorg-xinit
 ```
 
+### Install i3 window manager, status bar, terminal and menu
+```bash
+pacman -S i3-gaps i3-status rxvt-unicode dmenu
+```
+
 ## Create the xinit file in the home of the user
 ```bash
 vim ~/.xinitrc
@@ -151,8 +165,45 @@ vim ~/.xinitrc
 exec i3
 ```
 
-### Install i3
+Once i3 is started it will allow you to create a config file.
+Edit the created config file saved in ~/.config/i3/config
+
 ```bash
-pacman -S i3-wm dmenu
+vim ~/.config/i3/config
+# add gaps with
+gaps inner <px>
+gaps outer <px>
+# check the config file to see the keybinding
 ```
 
+
+## Install a web browser
+The two mayor web browsers in the official arch community repo are
+- chromium
+- Firefox
+
+```bash
+sudo pacman -S chromiun 
+sudo pacman -S firefox
+```
+
+## Install display manager
+```bash
+sudo pacman -S lightdm lightdm-gtk-greeter
+sudo systemctl enable lightdm.service
+```
+
+
+## Install Variety Wallpaper Manager
+```bash
+vim ~/.bashrc
+## Add the system variable to tell you are using i3 if not defined already
+export XDG_CURRENT_DESKTOP=i3
+
+# save and install variety, feh is needed by variety
+sudo pacman -S feh variety
+# if using display manager you need to start variety with the xserver
+vim ~/.xprofile
+# add variety to the xprofile
+variety &   #<--- the & is necesary 
+```
