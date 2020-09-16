@@ -83,6 +83,23 @@ grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+If you have a system with EFI you will need to do this instead:
+
+```bash
+# install the efibootmgr package
+sudo pacman -S grub efibootmgr
+# Mount the EFI partition in /boot/efi (default grub loction for efi files)
+sudo mount /dev/sda2 /boot/efi
+# If this is the first time setting EFI do this:
+sudo grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi --removable
+# Else check the EFI/Grub config i ok
+sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck
+# Build/apply your grub config
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+# Reboot your machine
+sudo reboot 
+```
+
 ### setup password
 ```bash
 passwd
