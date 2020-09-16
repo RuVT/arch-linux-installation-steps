@@ -143,6 +143,10 @@ pacman -Syu
 ### install fonts
 ```bash
 pacman -S noto-fonts
+pacman -S noto-fonts-extra
+pacman -S noto-fonts-cjk
+pacman -S noto-fonts-emoji
+# pacman -S ttf-emojione 
 ```
 
 ---
