@@ -114,17 +114,11 @@ reboot
 ```bash
 vim /etc/locale.gen #uncomment the your locals
 vim /etc/locale.conf #set the LANG variable
-#LANG=en-US.UTF-8
+#LANG=en_US.UTF-8
 ln -sf /usr/share/zoneinfo/<country>/<timezone> /etc/localtime
 #ln -sf /usr/share/zoneinfo/Mexico/BajaNorte /etc/localtime
 
-#you have to set the LC_* variable in /etc/locale.conf
-locale | cat > /etc/locale.conf
-#it is not necesary but can help to solve problems
-vim /etc/profile
-#add this at the end
-export LC_ALL=
-#export LC_ALL="en_US.UTF_8"
+locale-gen
 ```
 
 
