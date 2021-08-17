@@ -53,7 +53,7 @@ mount /dev/sda4 /mnt/home
 
 ### use pacstrap to install arch in the mounted drive with the some extra tools
 ```bash
-pacstrap /mnt base base-devel vim 
+pacstrap /mnt base base-devel linux vim 
 ```
 
 ### create an fstab file with all the partitions to be auto loaded on startup
@@ -97,12 +97,17 @@ sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=
 # Build/apply your grub config
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 # Reboot your machine
-sudo reboot 
 ```
 
 ### setup password
 ```bash
 passwd
+```
+
+### exit chroot and reboot
+```bash
+exit
+reboot
 ```
 
 ### setup locals
